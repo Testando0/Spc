@@ -6,12 +6,17 @@
     "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
-    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
+    "cf:build": "pnpm --filter @workspace/redspace-web build",
+    "cf:dev": "pnpm run cf:build && pnpm exec wrangler dev --config wrangler.jsonc",
+    "cf:deploy": "pnpm run cf:build && pnpm exec wrangler deploy --config wrangler.jsonc"
   },
   "private": true,
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261125.1",
     "prettier": "^3.8.3",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "wrangler": "^4.168.0"
   },
   "dependencies": {
     "@neon/config": "^1.8.6",

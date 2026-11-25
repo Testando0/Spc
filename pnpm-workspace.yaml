@@ -33,6 +33,7 @@ minimumReleaseAgeExclude:
   # this setting guards against does not apply to our own packages.
   - '@replit/*'
   - stripe-replit-sync
+  - '@cloudflare/workers-types@5.20261125.1'
 
 packages:
   - artifacts/*
@@ -67,13 +68,6 @@ catalog:
   zod: ^3.25.76
 
 autoInstallPeers: false
-
-onlyBuiltDependencies:
-  - '@swc/core'
-  - esbuild
-  - msw
-  - sqlite3
-  - unrs-resolver
 
 overrides:
   # replit uses linux-x64 only, we can exclude all other platforms
@@ -161,3 +155,8 @@ overrides:
   esbuild: "0.27.3"
   # CVE-2026-59873: force tar to patched version
   tar: ">=7.5.19"
+
+allowBuilds:
+  esbuild: true
+  sqlite3: true
+  workerd: true
